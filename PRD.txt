@@ -1,0 +1,233 @@
+Product Requirements Document (PRD)
+Title: Local Video Streaming Server (Docker)
+Author: Steve Mc
+Date: 2025-10-02
+
+## 1. Summary
+
+A small, Dockerised web application that runs on a Raspberry Pi (on the user's LAN) and serves local video files to devices on that LAN (e.g., Amazon Fire Stick). The app provides a simple web UI showing thumbnails and file names, playback in-browser using an HTML5 player (with HLS/progressive fallback), and direct URLs to each video for use in external players. Users can upload videos via the web UI (or mount a directory). The product prioritises ease-of-use, low friction deployment (Docker Compose), and lightweight operation suitable for Raspberry Pi hardware.
+
+## 2. Goals & Success Metrics
+
+**Primary goals**
+
+* Allow streaming of common video formats (mp4, mkv, avi, etc.) from a Raspberry Pi to LAN clients.
+* Provide a simple web UI to browse and play files with thumbnails.
+* Provide per-file HTTP streaming URLs usable by external clients (e.g., VLC, Fire Stick apps).
+* Provide easy deployment via Docker Compose and persistent storage mapping.
+
+**Success metrics**
+
+* Deployable on Raspberry Pi 4 (4GB/8GB) with Docker & Docker Compose.
+* Playbacks on Amazon Fire Stick (via browser or HLS-supporting app) with smooth playback for 720p/1080p files (no stuttering on local LAN).
+* Thumbnail shown for >95% of library items (auto-generated).
+* Upload feature successfully transfers files into persistent storage and appears in library within 30s for small files (no transcoding).
+* CPU usage remains reasonable; if transcoding is required, system degrades gracefully.
+
+## 3. Target Users
+
+* Home users with media collections who want a lightweight LAN-accessible streamer.
+* Users who want a private local streaming server without cloud dependence.
+* Users who prefer simple setup via Docker and basic web UI.
+
+## 4. Assumptions & Constraints
+
+* Runs on Raspberry Pi OS (64-bit preferred) with Docker + Docker Compose installed.
+* Network: LAN with device discovery optional; clients connect via IP:PORT or hostname.
+* Fire Stick may run a browser (Silk) or support HLS streams via apps — HLS recommended as primary streaming method.
+* Limited CPU available — full realtime transcoding of HD content may not be feasible on low-end Pi models.
+* Storage mounted from host into container (e.g., `/media/movies`).
+
+## 5. MVP (Minimum Viable Product) — Required Features
+
+1. **Dockerised server**
+
+   * Single Docker Compose file to run all required services.
+   * Persistent volume mapping for media, thumbnails, and metadata.
+
+2. **Library browsing UI**
+
+   * Web page listing videos with thumbnail, filename, size, duration (when available), and upload date.
+   * Search and simple filters (by name).
+
+3. **Playback**
+
+   * Play a video in-browser using HTML5 player with HLS if available, otherwise progressive streaming (HTTP range serving).
+   * Show playable URL per video (copy-to-clipboard button) that can be used in external players.
+
+4. **Uploads**
+
+   * Simple drag-and-drop and file picker upload to the media directory with progress and validation.
+   * Server saves files into configured media volume.
+
+5. **Thumbnail generation & metadata**
+
+   * Auto-generate thumbnails (using `ffmpeg`/`ffprobe`) when new files are added.
+   * Extract basic metadata: duration, resolution, codec.
+
+6. **Supported formats**
+
+   * Accept common container and codec combos (mp4/h264, mkv, avi). If container/codec not natively streamable, provide direct file URL and a note that playback depends on client capability.
+
+7. **Basic security**
+
+   * Optional simple auth (username/password) protected UI; defaults to open on LAN but can be configured with auth env vars.
+
+## 6. Recommended Architecture & Components
+
+* **Backend**: Node.js (Express) or Go (single binary), exposes REST endpoints:
+
+  * `GET /api/videos` — list videos + metadata
+  * `GET /api/videos/:id/thumbnail` — thumbnail
+  * `GET /api/videos/:id/stream.m3u8` — HLS manifest (if using HLS)
+  * `GET /media/<filename>` — direct file access with HTTP range support
+  * `POST /api/upload` — file upload
+* **Transcoding/segmenting**: `ffmpeg` used optionally to generate HLS segments on-demand or pre-generate low-res HLS for constrained clients. This should be configurable (on/off).
+* **Storage**: Host-mounted directory (e.g., `/home/pi/media`) mapped to container.
+* **Frontend**: Lightweight React or vanilla HTML/JS app – grid view with thumbnails; player page using video.js or HTML5 `<video>` element with HLS.js fallback.
+* **Reverse proxy (optional)**: `nginx` in front for static serving, caching, and range request handling.
+* **Thumbnail & metadata worker**: A small background job that watches the media directory (inotify) and generates thumbnails/metadata.
+
+## 7. Streaming Strategy
+
+* **Primary**: HLS (HTTP Live Streaming) — compatible with many devices and browsers when using HLS.js in browser. Generate HLS on-demand or pre-generate for files flagged for streaming.
+* **Fallback**: Direct HTTP Range requests for clients that support file streaming (e.g., VLC, many smart-TV browsers).
+* **On-demand Transcoding**: Optional. If enabled, start an `ffmpeg` process to transcode into HLS at requested quality; otherwise serve original file and rely on client decoding.
+
+## 8. User Flows
+
+1. **Browse & Play**
+
+   * User opens `http://raspberrypi:8080`.
+   * Grid of thumbnails and titles loads.
+   * User clicks a thumbnail → player opens and streams via HLS/direct file.
+
+2. **Get direct URL**
+
+   * User clicks a file → Copy URL button returns `http://raspberrypi:8080/media/filename` or `http://raspberrypi:8080/api/videos/123/stream.m3u8`.
+
+3. **Upload**
+
+   * User opens Upload modal → drag files or select → upload progress shown → file saved to media directory → thumbnail & metadata generated → file appears in library.
+
+4. **Adding files via host**
+
+   * User copies files directly into host-mounted media directory; background worker scans and imports them into the library.
+
+## 9. API + Example URLs
+
+* `GET /api/videos` → `[{ id, filename, title, size, duration, resolution, thumbnail_url, stream_url }]`
+* `GET /api/videos/:id/stream.m3u8` → HLS manifest for player
+* Direct file url: `http://<host>:<port>/media/<path-to-file>`
+* Upload: `POST /api/upload` multipart/form-data
+
+## 10. Security & Networking
+
+* Default: LAN-only access (bind to 0.0.0.0 but expected behind NAT; advise firewall).
+* Optional basic auth with env vars `ADMIN_USER` / `ADMIN_PASS`.
+* Suggest HTTPS only if exposing beyond LAN — provide instructions for reverse proxy with Let's Encrypt as optional stretch.
+* CORS: allow LAN origin by default.
+
+## 11. Performance & Pi-specific considerations
+
+* Avoid mandatory realtime transcoding on Pi 3/4 for 1080p — expensive. Offer pre-gen HLS or rely on client decoding.
+* Provide a config option to disable transcoding and use direct streaming only.
+* Recommend connecting Pi to Ethernet for smoother streaming of large files.
+* Use small segment durations (4-6s) for HLS to reduce latency but balance CPU use.
+
+## 12. Persistence & Backups
+
+* Media should live on host-mounted volume (e.g., `/home/pi/media`).
+* Thumbnails and metadata stored in a small SQLite database (or JSON) in a mapped volume.
+* Provide simple export/import for metadata.
+
+## 13. Testing & Acceptance Criteria
+
+* UI lists local files after placing them in the media folder.
+* Clicking thumbnail plays video on a desktop browser (Chrome) using player with less than 3s startup for local 720p mp4.
+* Copy-able URL plays same video in VLC on another LAN device.
+* Uploading a 50MB file succeeds and appears in library after upload completes and a thumbnail is generated.
+* If HLS is enabled, Fire Stick browser or HLS-capable app can play `stream.m3u8`.
+* CPU load remains acceptable (<70% on at least a Pi 4 for 720p direct streaming without transcoding).
+* Basic auth prevents access to library without credentials when enabled.
+
+## 14. MVP Timeline (suggested)
+
+* Day 1–2: Project skeleton — backend endpoints, docker-compose, static file serving.
+* Day 3–4: Implement media scanning, thumbnail & metadata extraction, storage mapping.
+* Day 5–6: Frontend list + thumbnail UI + basic player integration (HLS.js).
+* Day 7: Upload endpoint and front-end upload UI.
+* Day 8: Testing on Raspberry Pi + Fire Stick; fix streaming issues.
+* Day 9: Add basic auth, documentation, and sample docker-compose.
+* Day 10: Polish, README, and release image.
+
+(If you prefer fewer days, collapse into feature-focused sprints — this is a lightweight project.)
+
+## 15. Stretch / Future Features
+
+* User accounts and multiple libraries
+* On-the-fly transcoding profiles (low/medium/high)
+* Subtitle detection & selection (SRT)
+* DLNA/UPnP support to appear as media server
+* Chromecast support
+* Mobile-optimized responsive UI + offline caching
+* Auto-scan network shares (SMB/NFS) and index
+* Hardware accelerated transcoding (for Pi models with VAAPI or similar)
+
+## 16. Developer Notes (quick start)
+
+* **Stack suggestion**:
+
+  * Backend: Node.js + Express + `fluent-ffmpeg` (or Go + ffmpeg wrapper)
+  * Frontend: React + HLS.js (for HLS playback)
+  * DB: SQLite or simple JSON index
+  * Worker: small Node script using chokidar for file watching
+* **Docker Compose** example (conceptual):
+
+  ```
+  version: '3.8'
+  services:
+    mediaserver:
+      build: .
+      ports:
+        - "8080:8080"
+      volumes:
+        - ./media:/data/media
+        - ./db:/data/db
+      environment:
+        - MEDIA_DIR=/data/media
+        - DB_PATH=/data/db/videos.sqlite
+  ```
+* **ffmpeg** must be available in the image for thumbnail + HLS generation.
+* Provide an environment flag `ENABLE_HLS=true|false` and `TRANSCODE_ON_DEMAND=true|false`.
+
+## 17. Documentation & User Setup
+
+* README with:
+
+  * Prerequisites (Docker, Docker Compose, recommended Pi model)
+  * Example `docker-compose.yml`
+  * How to mount external storage
+  * How to enable auth and change port
+  * Troubleshooting: playback stutters, transcoding failures
+* Quickstart: clone repo → edit `docker-compose.yml` to map `./media` → `docker compose up -d` → visit `http://<pi-ip>:8080`.
+
+## 18. Risks & Mitigations
+
+* **Transcoding CPU overload** — mitigate: default off; warn in UI; recommend pre-transcoding on more powerful machine.
+* **Playback compatibility across clients** — mitigate: provide both HLS and direct file URLs, support subtitle formats, and document limitations for certain Fire Stick apps.
+* **Storage exhaustion** — expose free-space indicator and recommend external drives.
+
+---
+
+### Acceptance checklist (MVP)
+
+* [ ] Docker Compose runs on Raspberry Pi and serves the web UI.
+* [ ] Library shows files placed in media folder and uploaded via UI.
+* [ ] Thumbnails are auto-generated and displayed.
+* [ ] Play button streams video in browser; direct URL copied plays in an external player (VLC).
+* [ ] Upload works and new files appear in library.
+* [ ] Optional auth blocks UI when enabled.
+
+---
+

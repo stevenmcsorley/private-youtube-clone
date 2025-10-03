@@ -1,0 +1,79 @@
+
+services:
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${DB_NAME:-vidstream_db}
+      POSTGRES_USER: ${DB_USER:-vidstream_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-vidstream_password}
+    volumes:
+      - type: volume
+        source: db_data
+        target: /var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-vidstream_user} -d ${DB_NAME:-vidstream_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./backend:/app
+      - uploads:/app/uploads
+      - processed_videos:/app/processed_videos
+      - thumbnails:/app/thumbnails
+      - avatars:/app/avatars
+      - streams:/app/streams
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-vidstream_user}:${DB_PASSWORD:-vidstream_password}@database:${DB_PORT:-5432}/${DB_NAME:-vidstream_db}
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  video-processor:
+    build: ./video-processor
+    command: uvicorn processor:app --host 0.0.0.0 --port 8002
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./video-processor:/app
+      - uploads:/app/uploads
+      - processed_videos:/app/processed_videos
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  db_data:
+  uploads:
+  processed_videos:
+  thumbnails:
+  avatars:
+  streams:
