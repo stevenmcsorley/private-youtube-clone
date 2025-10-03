@@ -756,7 +756,8 @@ async def cleanup_bot_videos(
                      "devopsguru", "aienthusiast", "politicsnow", "cryptofinance",
                      "photogeek", "mindfulzen", "newstoday", "diycrafter", "biztips",
                      "polyglot", "filmcritic", "truecrime", "stargazer", "podcastclips",
-                     "latenightcomedy"]
+                     "latenightcomedy", "jazzblues", "rockmusic", "triphop", "indierock",
+                     "singersongwriter", "shoegaze"]
     else:
         bot_users = [username]
 
@@ -961,6 +962,76 @@ async def get_video_progress(
         return {"video_id": video_id, "progress": 0, "status": "failed"}
     else:
         return {"video_id": video_id, "progress": 0, "status": "processing"}
+
+@app.get("/videos/{video_id}/related", response_model=List[schemas.Video])
+async def get_related_videos(
+    video_id: int,
+    limit: int = 10,
+    db: Session = Depends(get_db),
+    current_user: Optional[models.User] = Depends(get_current_user_optional)
+):
+    """Get related videos based on tags and creator"""
+    # Get the current video
+    current_video = db.query(models.Video).filter(models.Video.id == video_id).first()
+    if not current_video:
+        raise HTTPException(status_code=404, detail="Video not found")
+
+    if not current_video.tags or len(current_video.tags) == 0:
+        # No tags, fall back to same creator
+        related = db.query(models.Video).filter(
+            models.Video.id != video_id,
+            models.Video.owner_id == current_video.owner_id,
+            models.Video.processing_status == "completed"
+        ).order_by(models.Video.views.desc()).limit(limit).all()
+    else:
+        # Find videos with overlapping tags
+        # Using PostgreSQL array overlap operator
+        related = db.query(models.Video).filter(
+            models.Video.id != video_id,
+            models.Video.processing_status == "completed",
+            models.Video.tags.op('&&')(current_video.tags)  # Array overlap
+        ).order_by(models.Video.views.desc()).limit(limit * 2).all()  # Get more for sorting
+
+        # Calculate overlap score and sort
+        # Exclude common tags like "auto-imported" from scoring
+        excluded_tags = {"auto-imported"}
+
+        scored_videos = []
+        for video in related:
+            if video.tags:
+                # Get meaningful tags only
+                current_meaningful = set(current_video.tags) - excluded_tags
+                video_meaningful = set(video.tags) - excluded_tags
+
+                # Calculate overlap on meaningful tags only
+                overlap = len(current_meaningful & video_meaningful)
+
+                # Only include if there's actual meaningful overlap
+                if overlap > 0:
+                    # Boost score if same creator
+                    creator_boost = 2 if video.owner_id == current_video.owner_id else 1
+                    score = overlap * creator_boost
+                    scored_videos.append((video, score))
+
+        # Sort by score DESC, then views DESC
+        scored_videos.sort(key=lambda x: (x[1], x[0].views), reverse=True)
+        related = [v[0] for v in scored_videos[:limit]]
+
+        # If no meaningful overlaps, fall back to same creator
+        if not related:
+            related = db.query(models.Video).filter(
+                models.Video.id != video_id,
+                models.Video.owner_id == current_video.owner_id,
+                models.Video.processing_status == "completed"
+            ).order_by(models.Video.views.desc()).limit(limit).all()
+
+    # Populate owner info
+    for video in related:
+        if video.owner:
+            video.owner.subscriber_count = len(video.owner.subscribers)
+            video.owner.video_count = len(video.owner.videos)
+
+    return related
 
 @app.patch("/videos/{video_id}/metadata")
 async def update_video_metadata(

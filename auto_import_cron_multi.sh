@@ -174,3 +174,67 @@ curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=$USER
 
 echo ""
 echo "$(date): Import request completed for $USERNAME"
+
+# Additional music bot imports at specific hours
+case $HOUR in
+    01)
+        # Trip-hop after crypto (late night atmospheric vibes)
+        echo "$(date): Starting import for triphop..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=triphop&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["trip hop", "Massive Attack band", "Portishead music", "downtempo electronic"]'
+        echo ""
+        echo "$(date): Import completed for triphop"
+        ;;
+    08)
+        # Indie rock after AI (morning alternative)
+        echo "$(date): Starting import for indierock..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=indierock&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["indie rock", "alternative rock", "underground music", "indie music"]'
+        echo ""
+        echo "$(date): Import completed for indierock"
+        ;;
+    14)
+        # Jazz after politics
+        echo "$(date): Starting import for jazzblues..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=jazzblues&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["jazz music", "blues music", "neo soul", "jazz fusion"]'
+        echo ""
+        echo "$(date): Import completed for jazzblues"
+
+        # Singer-songwriter (afternoon chill)
+        echo "$(date): Starting import for singersongwriter..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=singersongwriter&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["Jeff Buckley", "Elliott Smith", "Nick Drake", "Bon Iver"]'
+        echo ""
+        echo "$(date): Import completed for singersongwriter"
+        ;;
+    22)
+        # Update main music to be more indie/alternative
+        echo "$(date): Starting import for musiclover..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=musiclover&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["indie music", "alternative music", "live session", "KEXP session"]'
+        echo ""
+        echo "$(date): Import completed for musiclover"
+
+        # Rock (alternative/art rock)
+        echo "$(date): Starting import for rockmusic..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=rockmusic&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["The Cure band", "post punk", "art rock", "alternative rock"]'
+        echo ""
+        echo "$(date): Import completed for rockmusic"
+
+        # Shoegaze (evening atmospheric)
+        echo "$(date): Starting import for shoegaze..."
+        curl -X POST "http://192.168.1.198:8001/admin/auto-import-youtube?username=shoegaze&videos_per_category=2" \
+          -H "Content-Type: application/json" \
+          -d '["shoegaze", "Mogwai band", "My Bloody Valentine", "slowdive"]'
+        echo ""
+        echo "$(date): Import completed for shoegaze"
+        ;;
+esac

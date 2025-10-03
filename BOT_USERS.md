@@ -8,6 +8,7 @@ This document contains all automated bot user accounts, their credentials, conte
 |-------|------------------|-----------------------------|-------------------------|
 | 00:00 | techreviewer     | Tech Review Central         | Tech News & Reviews     |
 | 01:00 | cryptofinance    | Crypto Finance Hub          | Cryptocurrency/Blockchain|
+| 01:00 | triphop          | Trip-Hop Underground        | Trip-Hop/Downtempo 🎵   |
 | 02:00 | devopsguru       | DevOps Guru                 | DevOps/Cloud/CI-CD      |
 | 03:00 | photogeek        | Photography Geek            | Photography/Videography |
 | 04:00 | cleanupbot       | System Cleanup              | **CLEANUP HOUR**        |
@@ -15,12 +16,15 @@ This document contains all automated bot user accounts, their credentials, conte
 | 06:00 | fitnessguru      | Fitness Guru Hub            | Fitness/Workouts        |
 | 07:00 | newstoday        | News Today                  | Breaking News/Events    |
 | 08:00 | aienthusiast     | AI Enthusiast               | AI/Machine Learning     |
+| 08:00 | indierock        | Indie Rock Collective       | Indie/Alternative 🎵    |
 | 09:00 | diycrafter       | DIY Crafter Studio          | DIY/Crafts              |
 | 10:00 | outdoorexplorer  | Outdoor Explorer Adventures | Hiking/Camping          |
 | 11:00 | biztips          | Business Tips Pro           | Business/Entrepreneurship|
 | 12:00 | sciencegeek      | Science Geek Lab            | Science/Education       |
 | 13:00 | polyglot         | Polyglot Academy            | Language Learning       |
 | 14:00 | politicsnow      | Politics Now                | Political News          |
+| 14:00 | jazzblues        | Jazz & Blues Lounge         | Jazz/Neo-Soul 🎵        |
+| 14:00 | singersongwriter | Singer-Songwriter Sessions  | Acoustic/Songwriter 🎵  |
 | 15:00 | filmcritic       | Film Critic Reviews         | Movie Reviews           |
 | 16:00 | foodiechef       | Foodie Chef Kitchen         | Cooking/Recipes         |
 | 17:00 | truecrime        | True Crime Stories          | True Crime              |
@@ -28,10 +32,12 @@ This document contains all automated bot user accounts, their credentials, conte
 | 19:00 | stargazer        | Star Gazer Observatory      | Astronomy/Space         |
 | 20:00 | gamingpro        | Gaming Pro Network          | Gaming/Esports          |
 | 21:00 | podcastclips     | Podcast Clips Hub           | Podcast Highlights      |
-| 22:00 | musiclover       | Music Lover Studio          | Music Videos            |
+| 22:00 | musiclover       | Music Lover Studio          | Indie/Alternative 🎵    |
+| 22:00 | rockmusic        | Rock Music Central          | Alt/Art Rock 🎵         |
+| 22:00 | shoegaze         | Shoegaze & Dream Pop        | Shoegaze/Dream Pop 🎵   |
 | 23:00 | latenightcomedy  | Late Night Comedy           | Comedy/Late Night Shows |
 
-**Total:** 46 videos/day (2 per user × 23 content bots)
+**Total:** 58 videos/day (2 per user × 29 content bots)
 
 ---
 
@@ -87,10 +93,20 @@ This document contains all automated bot user accounts, their credentials, conte
 **Email:** gaming@vidstream.local
 **Time:** 20:00 | **Categories:** gaming highlights 2024, esports tournament, speedrun gameplay
 
+### Indie Rock Collective
+**Username:** `indierock` | **Password:** `indie2024!`
+**Email:** indierock@vidstream.local
+**Time:** 08:00 | **Categories:** indie rock, alternative rock, underground music, indie music
+
 ### Late Night Comedy
 **Username:** `latenightcomedy` | **Password:** `comedy2024!`
 **Email:** comedy@vidstream.local
 **Time:** 23:00 | **Categories:** late night show, comedy sketches, stand up comedy clips
+
+### Jazz & Blues Lounge
+**Username:** `jazzblues` | **Password:** `jazz2024!`
+**Email:** jazz@vidstream.local
+**Time:** 14:00 | **Categories:** jazz music, blues music, neo soul, jazz fusion
 
 ### Mindful Zen
 **Username:** `mindfulzen` | **Password:** `mindful2024!`
@@ -100,7 +116,7 @@ This document contains all automated bot user accounts, their credentials, conte
 ### Music Lover Studio
 **Username:** `musiclover` | **Password:** `music2024!`
 **Email:** music@vidstream.local
-**Time:** 22:00 | **Categories:** music video 2024, live concert performance, guitar tutorial
+**Time:** 22:00 | **Categories:** indie music, alternative music, live session, KEXP session
 
 ### Nature & Wildlife
 **Username:** `naturewild` | **Password:** `nature2024!`
@@ -137,6 +153,21 @@ This document contains all automated bot user accounts, their credentials, conte
 **Email:** language@vidstream.local
 **Time:** 13:00 | **Categories:** language learning, learn spanish, learn french
 
+### Rock Music Central
+**Username:** `rockmusic` | **Password:** `rock2024!`
+**Email:** rock@vidstream.local
+**Time:** 22:00 | **Categories:** The Cure band, post punk, art rock, alternative rock
+
+### Shoegaze & Dream Pop
+**Username:** `shoegaze` | **Password:** `shoegaze2024!`
+**Email:** shoegaze@vidstream.local
+**Time:** 22:00 | **Categories:** shoegaze, Mogwai band, My Bloody Valentine, slowdive
+
+### Singer-Songwriter Sessions
+**Username:** `singersongwriter` | **Password:** `songwriter2024!`
+**Email:** songwriter@vidstream.local
+**Time:** 14:00 | **Categories:** Jeff Buckley, Elliott Smith, Nick Drake, Bon Iver
+
 ### Science Geek Lab
 **Username:** `sciencegeek` | **Password:** `science2024!`
 **Email:** science@vidstream.local
@@ -151,6 +182,11 @@ This document contains all automated bot user accounts, their credentials, conte
 **Username:** `techreviewer` | **Password:** `tech2024!`
 **Email:** tech@vidstream.local
 **Time:** 00:00 | **Categories:** technology news today, gadget review 2024, tech unboxing
+
+### Trip-Hop Underground
+**Username:** `triphop` | **Password:** `triphop2024!`
+**Email:** triphop@vidstream.local
+**Time:** 01:00 | **Categories:** trip hop, Massive Attack band, Portishead music, downtempo electronic
 
 ### True Crime Stories
 **Username:** `truecrime` | **Password:** `crime2024!`
@@ -178,14 +214,15 @@ This document contains all automated bot user accounts, their credentials, conte
 
 ## 📊 Statistics
 
-- **Total Bot Users:** 25 (24 content + 1 cleanup)
-- **Active Content Bots:** 23 (posting every hour except 04:00)
-- **Content Diversity:** 23 different content categories
+- **Total Bot Users:** 31 (30 content + 1 cleanup)
+- **Active Content Bots:** 29 (some hours have multiple bots)
+- **Content Diversity:** 29 different content categories
 - **Posting Frequency:** Every hour (24/7)
-- **Videos Per Day:** 46 (2 per bot)
+- **Videos Per Day:** 58 (2 per bot × 29 bots)
 - **Cleanup:** Daily at 4 AM
 - **Tag Strategy:** Category + "auto-imported" + YouTube tags (first 5)
-- **Available Slots:** 0 (fully scheduled!)
+- **Music Bots:** 6 specialized indie/alternative music bots (NO mainstream/pop/hip-hop/EDM)
+- **Auto-Play Feature:** Related videos auto-play based on tag matching
 
 ---
 
@@ -208,20 +245,41 @@ curl -X POST "http://192.168.1.198:8001/admin/cleanup-bot-videos" \
 
 ---
 
-## ✨ New Features
+## ✨ Features
+
+### Auto-Play Related Videos
+- Videos automatically play the next related video when finished
+- Uses intelligent tag matching algorithm (same creator + overlapping tags)
+- Shows "Up Next" preview with 5 related videos
+- Toggle auto-play on/off from video player
+- Perfect for music videos - play similar genre/artists automatically
 
 ### YouTube Tag Extraction
 - Videos now include actual YouTube tags
 - Combines: `[category, "auto-imported", ...YouTube tags (first 5)]`
 - Better discoverability and search functionality
 
+### Music Genre Specialization
+- 6 specialized indie/alternative music bot users:
+  - **Trip-Hop Underground** (Massive Attack, Portishead, downtempo)
+  - **Indie Rock Collective** (indie, alternative, underground)
+  - **Singer-Songwriter Sessions** (Jeff Buckley, Elliott Smith, acoustic)
+  - **Shoegaze & Dream Pop** (My Bloody Valentine, Slowdive, atmospheric)
+  - **Rock Music Central** (art rock, post-punk, alternative)
+  - **Jazz & Blues Lounge** (jazz fusion, neo-soul, blues)
+  - **Music Lover Studio** (indie, KEXP sessions, alternative)
+- NO mainstream pop, hip-hop, or EDM - focus on artistic/underground music
+- Multiple bots per hour for increased diversity
+
 ### Hourly Schedule
-- Changed from every 2 hours to **HOURLY**
-- Maximum content diversity
-- 23 different content creators posting throughout the day
+- Hourly content imports (24/7)
+- 29 specialized content creators
+- 58 videos imported per day
+- Some hours have multiple bots for variety
 
 ---
 
 **Last Updated:** 2025-10-03
-**Version:** 3.0
+**Version:** 4.1 (Indie/Alternative Music Edition)
 **Schedule:** Hourly (24/7 automation)
+**Music Focus:** Artistic/underground - NO mainstream, hip-hop, or EDM

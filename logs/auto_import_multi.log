@@ -4,3 +4,21 @@ Fri  3 Oct 14:00:01 BST 2025: Starting import for politicsnow...
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   156  100    77  100    79   3660   3755 --:--:-- --:--:-- --:--:--  7428
 {"status":"started","message":"Import started in background for politicsnow"}
 Fri  3 Oct 14:00:01 BST 2025: Import request completed for politicsnow
+Fri  3 Oct 15:00:01 BST 2025: Starting import for filmcritic...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   150  100    76  100    74   3567   3473 --:--:-- --:--:-- --:--:--  7142
+{"status":"started","message":"Import started in background for filmcritic"}
+Fri  3 Oct 15:00:01 BST 2025: Import request completed for filmcritic
+Fri  3 Oct 16:00:01 BST 2025: Starting import for foodiechef...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   156  100    76  100    80   3681   3875 --:--:-- --:--:-- --:--:--  7800
+{"status":"started","message":"Import started in background for foodiechef"}
+Fri  3 Oct 16:00:01 BST 2025: Import request completed for foodiechef
+Fri  3 Oct 17:00:01 BST 2025: Starting import for truecrime...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   157  100    75  100    82   3429   3749 --:--:-- --:--:-- --:--:--  7476
+{"status":"started","message":"Import started in background for truecrime"}
+Fri  3 Oct 17:00:01 BST 2025: Import request completed for truecrime
