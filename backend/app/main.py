@@ -10,6 +10,7 @@ from sqlalchemy import func, and_, or_, String
 import os
 import shutil
 import httpx # Import httpx
+import requests
 import subprocess
 import asyncio
 
@@ -687,7 +688,6 @@ def import_youtube_videos_task(categories: Optional[List[str]] = None, videos_pe
                     thumbnail_path = None
                     if thumbnail_url:
                         try:
-                            import requests
                             THUMBNAIL_DIR = "/app/thumbnails"
                             os.makedirs(THUMBNAIL_DIR, exist_ok=True)
 
@@ -816,6 +816,161 @@ async def cleanup_bot_videos(
         "total_deleted": total_deleted,
         "users": results,
         "message": f"Deleted {total_deleted} old unwatched videos across {len(bot_users)} user(s)"
+    }
+
+@app.post("/admin/backfill-thumbnails")
+async def backfill_missing_thumbnails(
+    limit: int = 100,
+    db: Session = Depends(get_db)
+):
+    """Backfill missing thumbnails for YouTube videos"""
+    import yt_dlp
+
+    # Find videos with missing thumbnails
+    videos_missing_thumbnails = db.query(models.Video).filter(
+        models.Video.youtube_url.isnot(None),
+        models.Video.thumbnail_path.is_(None)
+    ).limit(limit).all()
+
+    if not videos_missing_thumbnails:
+        return {
+            "status": "success",
+            "message": "No videos missing thumbnails",
+            "updated": 0
+        }
+
+    updated_count = 0
+    failed_count = 0
+
+    for video in videos_missing_thumbnails:
+        try:
+            # Get video info from YouTube
+            ydl_opts = {
+                'quiet': True,
+                'no_warnings': True,
+                'extract_flat': False,
+            }
+
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                video_info = ydl.extract_info(f"https://www.youtube.com/watch?v={video.youtube_url}", download=False)
+
+            # Get thumbnail URL
+            thumbnail_url = video_info.get('thumbnail')
+
+            if thumbnail_url:
+                try:
+                    THUMBNAIL_DIR = "/app/thumbnails"
+                    os.makedirs(THUMBNAIL_DIR, exist_ok=True)
+
+                    thumbnail_filename = f"youtube_{video.youtube_url}.jpg"
+                    thumbnail_location = os.path.join(THUMBNAIL_DIR, thumbnail_filename)
+
+                    response = requests.get(thumbnail_url, timeout=10)
+                    response.raise_for_status()
+
+                    with open(thumbnail_location, "wb") as f:
+                        f.write(response.content)
+
+                    # Update video record
+                    video.thumbnail_path = f"/thumbnails/{thumbnail_filename}"
+                    db.commit()
+
+                    updated_count += 1
+                    print(f"✓ Updated thumbnail for video {video.id}: {video.title[:50]}")
+
+                except Exception as e:
+                    failed_count += 1
+                    print(f"✗ Failed to download thumbnail for video {video.id}: {e}")
+            else:
+                failed_count += 1
+                print(f"✗ No thumbnail URL found for video {video.id}")
+
+        except Exception as e:
+            failed_count += 1
+            print(f"✗ Failed to fetch video info for {video.id}: {e}")
+
+    return {
+        "status": "success",
+        "message": f"Backfilled {updated_count} thumbnails, {failed_count} failed",
+        "updated": updated_count,
+        "failed": failed_count,
+        "total_processed": len(videos_missing_thumbnails)
+    }
+
+@app.post("/admin/check-unavailable-videos")
+async def check_unavailable_youtube_videos(
+    limit: int = 50,
+    delete_unavailable: bool = False,
+    db: Session = Depends(get_db)
+):
+    """Check for YouTube videos that are no longer available (deleted, private, region-blocked)"""
+    import yt_dlp
+
+    # Get all YouTube videos
+    youtube_videos = db.query(models.Video).filter(
+        models.Video.youtube_url.isnot(None)
+    ).limit(limit).all()
+
+    if not youtube_videos:
+        return {
+            "status": "success",
+            "message": "No YouTube videos to check",
+            "unavailable": []
+        }
+
+    unavailable_videos = []
+    available_count = 0
+
+    for video in youtube_videos:
+        try:
+            # Try to get video info from YouTube
+            ydl_opts = {
+                'quiet': True,
+                'no_warnings': True,
+                'extract_flat': False,
+                'skip_download': True,
+            }
+
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.extract_info(f"https://www.youtube.com/watch?v={video.youtube_url}", download=False)
+
+            # If we get here, video is available
+            available_count += 1
+            print(f"✓ Video {video.id} is available: {video.title[:50]}")
+
+        except Exception as e:
+            # Video is unavailable (deleted, private, etc.)
+            error_msg = str(e)
+            unavailable_videos.append({
+                "id": video.id,
+                "title": video.title,
+                "youtube_url": video.youtube_url,
+                "owner": video.owner.username if video.owner else None,
+                "error": error_msg[:100]
+            })
+            print(f"✗ Video {video.id} is unavailable: {video.title[:50]} - {error_msg[:50]}")
+
+            # Delete if requested
+            if delete_unavailable:
+                # Delete thumbnail if exists
+                if video.thumbnail_path and os.path.exists(f"/app{video.thumbnail_path}"):
+                    try:
+                        os.remove(f"/app{video.thumbnail_path}")
+                    except:
+                        pass
+
+                db.delete(video)
+                db.commit()
+                print(f"  → Deleted video {video.id}")
+
+    return {
+        "status": "success",
+        "message": f"Checked {len(youtube_videos)} videos: {available_count} available, {len(unavailable_videos)} unavailable",
+        "total_checked": len(youtube_videos),
+        "available": available_count,
+        "unavailable_count": len(unavailable_videos),
+        "unavailable": unavailable_videos,
+        "deleted": len(unavailable_videos) if delete_unavailable else 0
     }
 
 @app.get("/videos", response_model=List[schemas.Video])
@@ -1601,9 +1756,12 @@ async def dislike_video(
 async def get_like_status(
     video_id: int,
     db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_user)
+    current_user: Optional[models.User] = Depends(get_current_user_optional)
 ):
     """Get current user's like/dislike status for a video"""
+    if not current_user:
+        return {"status": "none"}
+
     existing = db.query(models.VideoLike).filter(
         models.VideoLike.video_id == video_id,
         models.VideoLike.user_id == current_user.id

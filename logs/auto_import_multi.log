@@ -22,3 +22,167 @@ Fri  3 Oct 17:00:01 BST 2025: Starting import for truecrime...
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   157  100    75  100    82   3429   3749 --:--:-- --:--:-- --:--:--  7476
 {"status":"started","message":"Import started in background for truecrime"}
 Fri  3 Oct 17:00:01 BST 2025: Import request completed for truecrime
+Fri  3 Oct 18:00:01 BST 2025: Starting import for naturewild...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   176  100    76  100   100   3756   4942 --:--:-- --:--:-- --:--:--  8800
+{"status":"started","message":"Import started in background for naturewild"}
+Fri  3 Oct 18:00:01 BST 2025: Import request completed for naturewild
+Fri  3 Oct 19:00:01 BST 2025: Starting import for stargazer...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (7) Failed to connect to 192.168.1.198 port 8001 after 0 ms: Couldn't connect to server
+
+Fri  3 Oct 19:00:01 BST 2025: Import request completed for stargazer
+Fri  3 Oct 20:00:01 BST 2025: Starting import for gamingpro...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   159  100    75  100    84   2992   3351 --:--:-- --:--:-- --:--:--  6360
+{"status":"started","message":"Import started in background for gamingpro"}
+Fri  3 Oct 20:00:01 BST 2025: Import request completed for gamingpro
+Fri  3 Oct 21:00:01 BST 2025: Starting import for podcastclips...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   160  100    78  100    82   4179   4393 --:--:-- --:--:-- --:--:--  8888
+{"status":"started","message":"Import started in background for podcastclips"}
+Fri  3 Oct 21:00:01 BST 2025: Import request completed for podcastclips
+Fri  3 Oct 22:00:01 BST 2025: Starting import for musiclover...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   158  100    76  100    82   3923   4233 --:--:-- --:--:-- --:--:--  8315
+{"status":"started","message":"Import started in background for musiclover"}
+Fri  3 Oct 22:00:01 BST 2025: Import request completed for musiclover
+Fri  3 Oct 22:00:01 BST 2025: Starting import for musiclover...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   144  100    76  100    68    946    847 --:--:-- --:--:-- --:--:--  1800
+{"status":"started","message":"Import started in background for musiclover"}
+Fri  3 Oct 22:00:01 BST 2025: Import completed for musiclover
+Fri  3 Oct 22:00:01 BST 2025: Starting import for rockmusic...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   137  100    75  100    62   1156    956 --:--:-- --:--:-- --:--:--  2140
+{"status":"started","message":"Import started in background for rockmusic"}
+Fri  3 Oct 22:00:01 BST 2025: Import completed for rockmusic
+Fri  3 Oct 22:00:01 BST 2025: Starting import for shoegaze...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 45   136    0     0  100    62      0    411 --:--:-- --:--:-- --:--:--   410100   136  100    74  100    62    473    396 --:--:-- --:--:-- --:--:--   866
+{"status":"started","message":"Import started in background for shoegaze"}
+Fri  3 Oct 22:00:01 BST 2025: Import completed for shoegaze
+Fri  3 Oct 23:00:01 BST 2025: Starting import for latenightcomedy...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   164  100    81  100    83   3805   3899 --:--:-- --:--:-- --:--:--  7809
+{"status":"started","message":"Import started in background for latenightcomedy"}
+Fri  3 Oct 23:00:01 BST 2025: Import request completed for latenightcomedy
+Sat  4 Oct 00:00:01 BST 2025: Starting import for techreviewer...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   166  100    78  100    88   4018   4533 --:--:-- --:--:-- --:--:--  8736
+{"status":"started","message":"Import started in background for techreviewer"}
+Sat  4 Oct 00:00:01 BST 2025: Import request completed for techreviewer
+Sat  4 Oct 01:00:01 BST 2025: Starting import for cryptofinance...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   164  100    79  100    85   3470   3733 --:--:-- --:--:-- --:--:--  7454
+{"status":"started","message":"Import started in background for cryptofinance"}
+Sat  4 Oct 01:00:01 BST 2025: Import request completed for cryptofinance
+Sat  4 Oct 01:00:01 BST 2025: Starting import for triphop...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   152  100    73  100    79   2722   2946 --:--:-- --:--:-- --:--:--  5846
+{"status":"started","message":"Import started in background for triphop"}
+Sat  4 Oct 01:00:01 BST 2025: Import completed for triphop
+Sat  4 Oct 02:00:01 BST 2025: Starting import for devopsguru...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   155  100    76  100    79   3631   3775 --:--:-- --:--:-- --:--:--  7750
+{"status":"started","message":"Import started in background for devopsguru"}
+Sat  4 Oct 02:00:01 BST 2025: Import request completed for devopsguru
+Sat  4 Oct 03:00:01 BST 2025: Starting import for photogeek...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   153  100    75  100    78   3611   3755 --:--:-- --:--:-- --:--:--  7650
+{"status":"started","message":"Import started in background for photogeek"}
+Sat  4 Oct 03:00:01 BST 2025: Import request completed for photogeek
+Cleanup hour - no content import
+Sat  4 Oct 05:00:01 BST 2025: Starting import for mindfulzen...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   156  100    76  100    80   3541   3728 --:--:-- --:--:-- --:--:--  7428
+{"status":"started","message":"Import started in background for mindfulzen"}
+Sat  4 Oct 05:00:01 BST 2025: Import request completed for mindfulzen
+Sat  4 Oct 06:00:01 BST 2025: Starting import for fitnessguru...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   173  100    77  100    96   3943   4916 --:--:-- --:--:-- --:--:--  9105
+{"status":"started","message":"Import started in background for fitnessguru"}
+Sat  4 Oct 06:00:01 BST 2025: Import request completed for fitnessguru
+Sat  4 Oct 07:00:01 BST 2025: Starting import for newstoday...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   147  100    75  100    72   3977   3818 --:--:-- --:--:-- --:--:--  8166
+{"status":"started","message":"Import started in background for newstoday"}
+Sat  4 Oct 07:00:01 BST 2025: Import request completed for newstoday
+Sat  4 Oct 08:00:01 BST 2025: Starting import for aienthusiast...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   183  100    78  100   105   4034   5431 --:--:-- --:--:-- --:--:--  9631
+{"status":"started","message":"Import started in background for aienthusiast"}
+Sat  4 Oct 08:00:01 BST 2025: Import request completed for aienthusiast
+Sat  4 Oct 08:00:01 BST 2025: Starting import for indierock...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   145  100    75  100    70    931    868 --:--:-- --:--:-- --:--:--  1812
+{"status":"started","message":"Import started in background for indierock"}
+Sat  4 Oct 08:00:01 BST 2025: Import completed for indierock
+Sat  4 Oct 09:00:01 BST 2025: Starting import for diycrafter...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   150  100    76  100    74   4049   3942 --:--:-- --:--:-- --:--:--  8333
+{"status":"started","message":"Import started in background for diycrafter"}
+Sat  4 Oct 09:00:01 BST 2025: Import request completed for diycrafter
+Sat  4 Oct 10:00:01 BST 2025: Starting import for outdoorexplorer...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   167  100    81  100    86   3442   3655 --:--:-- --:--:-- --:--:--  7260
+{"status":"started","message":"Import started in background for outdoorexplorer"}
+Sat  4 Oct 10:00:01 BST 2025: Import request completed for outdoorexplorer
+Sat  4 Oct 11:00:01 BST 2025: Starting import for biztips...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   154  100    73  100    81   3012   3343 --:--:-- --:--:-- --:--:--  6416
+{"status":"started","message":"Import started in background for biztips"}
+Sat  4 Oct 11:00:01 BST 2025: Import request completed for biztips
+Sat  4 Oct 12:00:01 BST 2025: Starting import for sciencegeek...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   181  100    77  100   104   3175   4288 --:--:-- --:--:-- --:--:--  7541
+{"status":"started","message":"Import started in background for sciencegeek"}
+Sat  4 Oct 12:00:01 BST 2025: Import request completed for sciencegeek
+Sat  4 Oct 13:00:01 BST 2025: Starting import for polyglot...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   149  100    74  100    75    472    478 --:--:-- --:--:-- --:--:--   949100   149  100    74  100    75    472    478 --:--:-- --:--:-- --:--:--   949
+{"status":"started","message":"Import started in background for polyglot"}
+Sat  4 Oct 13:00:01 BST 2025: Import request completed for polyglot
+Sat  4 Oct 14:00:01 BST 2025: Starting import for politicsnow...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   156  100    77  100    79   3286   3372 --:--:-- --:--:-- --:--:--  6782
+{"status":"started","message":"Import started in background for politicsnow"}
+Sat  4 Oct 14:00:01 BST 2025: Import request completed for politicsnow
+Sat  4 Oct 14:00:01 BST 2025: Starting import for jazzblues...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   131  100    75  100    56    684    511 --:--:-- --:--:-- --:--:--  1201
+{"status":"started","message":"Import started in background for jazzblues"}
+Sat  4 Oct 14:00:02 BST 2025: Import completed for jazzblues
+Sat  4 Oct 14:00:02 BST 2025: Starting import for singersongwriter...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   141  100    82  100    59    803    578 --:--:-- --:--:-- --:--:--  1396
+{"status":"started","message":"Import started in background for singersongwriter"}
+Sat  4 Oct 14:00:02 BST 2025: Import completed for singersongwriter

@@ -24,11 +24,35 @@ function VideoPlayer() {
   const [isLoading, setIsLoading] = useState(true);
   const youtubePlayerRef = useRef(null);
 
+  // Cleanup when component unmounts or videoId changes
+  useEffect(() => {
+    return () => {
+      // Cleanup HLS
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+      // Cleanup YouTube player
+      if (youtubePlayerRef.current && youtubePlayerRef.current.destroy) {
+        try {
+          youtubePlayerRef.current.destroy();
+        } catch (e) {
+          // Silent cleanup
+        }
+        youtubePlayerRef.current = null;
+      }
+      // Reset refs
+      viewCountedRef.current = false;
+    };
+  }, [videoId]);
+
   useEffect(() => {
     // Reset state when videoId changes
     setIsLoading(true);
     setVideoData(null);
     setError(null);
+    setRelatedVideos([]);
+    setLikeStatus('none');
     viewCountedRef.current = false;
 
     const fetchVideoMetadata = async () => {
@@ -415,12 +439,6 @@ function VideoPlayer() {
     } else {
       window.onYouTubeIframeAPIReady = initPlayer;
     }
-
-    return () => {
-      if (youtubePlayerRef.current && youtubePlayerRef.current.destroy) {
-        youtubePlayerRef.current.destroy();
-      }
-    };
   }, [videoData, videoId, autoPlayEnabled, isLooping, relatedVideos, navigate]);
 
   if (error) {

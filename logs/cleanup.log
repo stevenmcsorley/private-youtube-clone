@@ -1,0 +1,6 @@
+Sat  4 Oct 04:00:01 BST 2025: Starting cleanup of old bot videos...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   201  100   149  100    52   8823   3079 --:--:-- --:--:-- --:--:-- 12562
+{"status":"success","total_deleted":0,"users":{"cleanupbot":{"deleted":0,"remaining":0}},"message":"Deleted 0 old unwatched videos across 1 user(s)"}
+Sat  4 Oct 04:00:01 BST 2025: Cleanup completed

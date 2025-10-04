@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
@@ -16,6 +16,11 @@ import { useAuth } from './context/AuthContext';
 
 function Home() {
   return <VideoList />;
+}
+
+function VideoPlayerWrapper() {
+  const { videoId } = useParams();
+  return <VideoPlayer key={videoId} />;
 }
 
 function ProtectedRoute({ children }) {
@@ -188,7 +193,7 @@ function App() {
               }
             />
             <Route path="/playlists/:playlistId" element={<PlaylistViewPage />} />
-            <Route path="/videos/:videoId" element={<VideoPlayer />} />
+            <Route path="/videos/:videoId" element={<VideoPlayerWrapper />} />
             <Route path="/channel/:userId" element={<ChannelPage />} />
           </Routes>
         </main>
